@@ -1,0 +1,12 @@
+package main
+{{ $structs := . }}
+{{ range $index, $structD := $structs }}
+{{ if ne $structD.Name "" }}
+//{{$structD.Description}}
+type {{ $structD.Name }} struct {
+{{ range $fieldIndex, $field := $structD.Field }}
+    {{ $field.Name }} {{ $field.TypeName }} //{{ $field.Description }}
+{{ end }}
+}
+{{ end }}
+{{ end }}
