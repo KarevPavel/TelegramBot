@@ -1,6 +1,6 @@
 package interfaces
 
-import "telegram-bot-long-polling/constants"
+import "bitbucket.org/y4cxp543/telegram-bot/constants"
 
 type IObserver interface {
 	Register(Func ICommonObserverFunc, observerID string, groupID constants.GroupID)

@@ -1,11 +1,13 @@
 package torrentz2
 
 import (
+	"bitbucket.org/y4cxp543/telegram-bot/constants"
+	"bitbucket.org/y4cxp543/telegram-bot/util"
+	"errors"
+	"log"
 	"net/http"
 	"regexp"
 	"strings"
-	"telegram-bot-long-polling/constants"
-	"telegram-bot-long-polling/util"
 )
 
 
@@ -13,9 +15,15 @@ type Result struct {
 	Link, Name, Age, Size string
 }
 
-func Search(condition string) []Result {
+func Search(condition string) ([]Result, error) {
+	if len(condition) == 0 {
+		log.Println("Condition cannot be empty!")
+		return nil, errors.New("Condition cannot be empty!")
+	}
 	condition = strings.ReplaceAll(condition, constants.Space, "+")
+	log.Printf("GET: %s%s", constants.SearchOrderByPeers, condition)
 	response,_ := http.Get(constants.SearchOrderByPeers + condition)
+	log.Printf("Response Code: %d, Content-Length: %d", response.StatusCode, response.ContentLength)
 	result:= string(util.GetBytes(response)[:])
 	regex := regexp.MustCompile("href=(?P<Link>\\/[a-zA-Z0-9]+)>(?P<Name>[а-яА-Яa-zA-Z0-9\\s-\\(\\)\\.\\_\\[\\]]+)</a>.*title=\\d+>(?P<Age>[0-9]+[\\s|year|month|day|D]*s?)</span><span>(?P<Size>\\d+[\\sGB|MB|KB]+)")
 	submatches := regex.FindAllStringSubmatch(result , -1)
@@ -38,5 +46,5 @@ func Search(condition string) []Result {
 		}
 		answer[index] = result
 	}
-	return answer
+	return answer, nil;
 }

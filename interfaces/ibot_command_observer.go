@@ -1,7 +1,7 @@
 package interfaces
 
 import (
-	"telegram-bot-long-polling/telegram/models"
+	"bitbucket.org/y4cxp543/telegram-bot/telegram/models"
 )
 
 type IBotCommandObserver interface {

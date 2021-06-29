@@ -1,7 +1,7 @@
 package interfaces
 
 import (
-	models2 "telegram-bot-long-polling/telegram/models"
+	models2 "bitbucket.org/y4cxp543/telegram-bot/telegram/models"
 )
 
 type ITelegramFunctions interface {

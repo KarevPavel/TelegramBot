@@ -1,30 +1,30 @@
 package commands
 
 import (
-	"aria2c"
+	"bitbucket.org/y4cxp543/aria2c"
+	"bitbucket.org/y4cxp543/telegram-bot/constants"
+	"bitbucket.org/y4cxp543/telegram-bot/external/torrentz2"
+	"bitbucket.org/y4cxp543/telegram-bot/interfaces"
+	"bitbucket.org/y4cxp543/telegram-bot/telegram"
+	"bitbucket.org/y4cxp543/telegram-bot/telegram/models"
 	"encoding/base64"
 	"github.com/asaskevich/EventBus"
 	"log"
 	"regexp"
-	"telegram-bot-long-polling/constants"
-	"telegram-bot-long-polling/external/torrentz2"
-	"telegram-bot-long-polling/interfaces"
-	"telegram-bot-long-polling/telegram"
-	"telegram-bot-long-polling/telegram/models"
 )
 
 type commandProcessor struct {
 	Cache      interfaces.Cache
 	EventBus   EventBus.Bus
 	TFunctions interfaces.ITelegramFunctions
-	AriaApi    aria2c.AriaWSSender
+	/*AriaApi    aria2c.AriaWSSender*/
 }
 
-func NewCommandProcessor(Cache interfaces.Cache, EventBus EventBus.Bus, TFunctions interfaces.ITelegramFunctions, AriaApi aria2c.AriaWSSender) *commandProcessor {
+func NewCommandProcessor(Cache interfaces.Cache, EventBus EventBus.Bus, TFunctions interfaces.ITelegramFunctions /*, AriaApi aria2c.AriaWSSender*/) *commandProcessor {
 	return &commandProcessor{Cache: Cache,
 		EventBus:   EventBus,
 		TFunctions: TFunctions,
-		AriaApi:    AriaApi,
+		/*AriaApi:    AriaApi,*/
 	}
 }
 
@@ -43,9 +43,10 @@ func (command *commandProcessor) ProcessDocument(botCommandArg interfaces.BotCom
 			var file, _ = command.TFunctions.GetFile(document.FileId)
 			var fileBytes = command.TFunctions.DownloadFile(file.FilePath)
 			var b64 = base64.StdEncoding.EncodeToString(fileBytes)
-			var uuid = command.AriaApi.AddTorrent(b64)
-			command.Cache.Put(uuid, botCommandArg)
-			command.EventBus.Subscribe(uuid, command.AriaReceived)
+			log.Println(b64)
+			/*var uuid = command.AriaApi.AddTorrent(b64)*/
+			/*command.Cache.Put(uuid, botCommandArg)
+			command.EventBus.Subscribe(uuid, command.AriaReceived)*/
 		}
 	}
 }
@@ -109,10 +110,15 @@ func (command *commandProcessor) BtDownloadCompleted(gid string) {
 
 func (command *commandProcessor) ProcessSearchTorrents(botCommandArg interfaces.BotCommandArgument) {
 	if constants.Search.Equals(botCommandArg.Command) {
-		var results = torrentz2.Search(botCommandArg.Argument)
-		var poll = telegram.CreatePollFromResults(botCommandArg.ChatId, botCommandArg.MessageId, 1, results)
-		var response, _ = command.TFunctions.SendPoll(poll)
-		command.Cache.Put(response.Poll.Id, results)
+		var results, error = torrentz2.Search(botCommandArg.Argument)
+		if error == nil {
+			var poll = telegram.CreatePollFromResults(botCommandArg.ChatId, botCommandArg.MessageId, 1, results)
+			var response, err = command.TFunctions.SendPoll(poll)
+			if err != nil {
+				log.Println(err)
+			}
+			command.Cache.Put(response.Poll.Id, results)
+		}
 	}
 }
 
@@ -122,6 +128,6 @@ func (command *commandProcessor) ProcessMagnetLink(botCommandArg interfaces.BotC
 		log.Println(magnetLink)
 		var wrapper = make([]string, 1)
 		wrapper[0] = magnetLink
-		command.AriaApi.AddUri(wrapper)
+		/*command.AriaApi.AddUri(wrapper)*/
 	}
 }

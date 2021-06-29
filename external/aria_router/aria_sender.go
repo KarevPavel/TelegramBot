@@ -1,12 +1,12 @@
 package aria_router
 
 import (
-	"aria2c"
+	"bitbucket.org/y4cxp543/aria2c"
+	"bitbucket.org/y4cxp543/telegram-bot/interfaces"
+	"bitbucket.org/y4cxp543/telegram-bot/util"
 	"encoding/json"
 	"github.com/gorilla/websocket"
 	"log"
-	"telegram-bot-long-polling/interfaces"
-	"telegram-bot-long-polling/util"
 )
 
 type AuthAriaWS struct {

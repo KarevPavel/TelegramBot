@@ -1,7 +1,9 @@
 package util
 
 import (
-	"aria2c"
+	"bitbucket.org/y4cxp543/aria2c"
+	"bitbucket.org/y4cxp543/telegram-bot/constants"
+	"bitbucket.org/y4cxp543/telegram-bot/telegram/models"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -11,10 +13,7 @@ import (
 	"net/http"
 	"os"
 	"reflect"
-	"string_utils"
 	"strings"
-	"telegram-bot-long-polling/constants"
-	"telegram-bot-long-polling/telegram/models"
 )
 
 func GetBytes(response *http.Response) []byte {
@@ -45,7 +44,11 @@ func GetGid(resp *aria2c.Response) string {
 }
 
 func ReplaceMethod(source, condition string, method constants.TelegramMethods) string {
-	return string_utils.Replace(source, condition, method.String())
+	return Replace(source, condition, method.String())
+}
+
+func Replace(source, condition, method string) string {
+	return strings.ReplaceAll(source, `${` + condition + `}`, method)
 }
 
 func AddQueryParam(builder *strings.Builder, isFirst *bool, queryParam constants.QueryParams, paramValue string){

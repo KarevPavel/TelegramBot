@@ -2,12 +2,12 @@ package old
 
 import "encoding/json"
 
-type GetMeResponse struct {
+type GetMeResponse struct { //Deprecated
 	Ok     bool   `json:"ok"`
 	Result Result `json:"result"`
 }
 
-type Result struct {
+type Result struct { //Deprecated
 	ID                      int    `json:"id"`
 	IsBot                   bool   `json:"is_bot"`
 	FirstName               string `json:"first_name"`
@@ -17,7 +17,7 @@ type Result struct {
 	SupportsInlineQueries   bool   `json:"supports_inline_queries"`
 }
 
-type SendMessageRequest struct {
+type SendMessageRequest struct { //Deprecated
 	ChatId                int64     `json:"chat_id,omitempty"`        //Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	Text                  string    `json:"text,omitempty"`           //Text of the message to be sent
 	ParseMode             ParseMode `json:"parse_mode"`               //Optional 	Send Markdown or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
@@ -27,7 +27,7 @@ type SendMessageRequest struct {
 	//reply_markup
 }
 
-type PollRequest struct {
+type PollRequest struct { //Deprecated
 	Id                    int64        `json:"id"`
 	ChatId                int64        `json:"chat_id,omitempty"`       //Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	Question              string       `json:"question,omitempty"`      //PollRequest question, 1-255 characters
@@ -42,7 +42,7 @@ type PollRequest struct {
 }
 
 
-type PollResponse struct {
+type PollResponse struct { //Deprecated
 	Id                    string       `json:"id"`
 	ChatId                int64        `json:"chat_id,omitempty"`       //Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	Question              string       `json:"question,omitempty"`      //PollResponse question, 1-255 characters
@@ -56,7 +56,7 @@ type PollResponse struct {
 	ReplyToMessageId      int          `json:"reply_to_message_id"`     //If the message is a reply, ID of the original message
 }
 
-type PollOption struct {
+type PollOption struct { //Deprecated
 	Text       string `json:"text,omitempty"` //	Option text, 1-100 characters
 	VoterCount string `json:"voter_count"`    //Number of users that voted for this option
 }
@@ -72,7 +72,7 @@ const (
 
 // Message is returned by almost every request, and contains data about
 // almost anything.
-type Message struct {
+type Message struct { //Deprecated
 	MessageID             int                `json:"message_id,omitempty"`
 	Date                  int                `json:"date,omitempty"`
 	Chat                  *Chat              `json:"chat,omitempty"`
@@ -117,7 +117,7 @@ type Message struct {
 }
 
 // User is a user on Telegram.
-type User struct {
+type User struct { //Deprecated
 	ID           int    `json:"id"`
 	FirstName    string `json:"first_name"`
 	LastName     string `json:"last_name"`     // optional
@@ -127,13 +127,13 @@ type User struct {
 }
 
 // ChatPhoto represents a chat photo.
-type ChatPhoto struct {
+type ChatPhoto struct { //Deprecated
 	SmallFileID string `json:"small_file_id"`
 	BigFileID   string `json:"big_file_id"`
 }
 
 // Chat contains information about the place a message was sent.
-type Chat struct {
+type Chat struct { //Deprecated
 	ID                  int64      `json:"id"`
 	Type                string     `json:"type"`
 	Title               string     `json:"title"`                          // optional
@@ -147,7 +147,7 @@ type Chat struct {
 	PinnedMessage       *Message   `json:"pinned_message"`        // optional
 }
 
-type MessageEntity struct {
+type MessageEntity struct { //Deprecated
 	Type   string `json:"type"`
 	Offset int    `json:"offset"`
 	Length int    `json:"length"`
@@ -156,7 +156,7 @@ type MessageEntity struct {
 }
 
 // Audio contains information about audio.
-type Audio struct {
+type Audio struct { //Deprecated
 	FileID    string `json:"file_id"`
 	Duration  int    `json:"duration"`
 	Performer string `json:"performer"` // optional
@@ -166,7 +166,7 @@ type Audio struct {
 }
 
 // PhotoSize contains information about photos.
-type PhotoSize struct {
+type PhotoSize struct { //Deprecated
 	FileID   string `json:"file_id"`
 	Width    int    `json:"width"`
 	Height   int    `json:"height"`
@@ -174,7 +174,7 @@ type PhotoSize struct {
 }
 
 // Document contains information about a document.
-type Document struct {
+type Document struct { //Deprecated
 	FileID    string     `json:"file_id"`
 	Thumbnail *PhotoSize `json:"thumb"`     // optional
 	FileName  string     `json:"file_name"` // optional
@@ -183,7 +183,7 @@ type Document struct {
 }
 
 // Sticker contains information about a sticker.
-type Sticker struct {
+type Sticker struct { //Deprecated
 	FileID     string     `json:"file_id"`
 	Width      int        `json:"width"`
 	Height     int        `json:"height"`
@@ -195,7 +195,7 @@ type Sticker struct {
 }
 
 // ChatAnimation contains information about an animation.
-type ChatAnimation struct {
+type ChatAnimation struct { //Deprecated
 	FileID    string     `json:"file_id"`
 	Width     int        `json:"width"`
 	Height    int        `json:"height"`
@@ -207,7 +207,7 @@ type ChatAnimation struct {
 }
 
 // Video contains information about a video.
-type Video struct {
+type Video struct { //Deprecated
 	FileID    string     `json:"file_id"`
 	Width     int        `json:"width"`
 	Height    int        `json:"height"`
@@ -218,7 +218,7 @@ type Video struct {
 }
 
 // VideoNote contains information about a video.
-type VideoNote struct {
+type VideoNote struct { //Deprecated
 	FileID    string     `json:"file_id"`
 	Length    int        `json:"length"`
 	Duration  int        `json:"duration"`
@@ -227,7 +227,7 @@ type VideoNote struct {
 }
 
 // Voice contains information about a voice.
-type Voice struct {
+type Voice struct { //Deprecated
 	FileID   string `json:"file_id"`
 	Duration int    `json:"duration"`
 	MimeType string `json:"mime_type"` // optional
@@ -236,7 +236,7 @@ type Voice struct {
 
 // Contact contains information about a contact.
 // Note that LastName and UserID may be empty.
-type Contact struct {
+type Contact struct { //Deprecated
 	PhoneNumber string `json:"phone_number"`
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name"` // optional
@@ -244,13 +244,13 @@ type Contact struct {
 }
 
 // Location contains information about a place.
-type Location struct {
+type Location struct { //Deprecated
 	Longitude float64 `json:"longitude"`
 	Latitude  float64 `json:"latitude"`
 }
 
 // Venue contains information about a venue, including its Location.
-type Venue struct {
+type Venue struct { //Deprecated
 	Location     Location `json:"location"`
 	Title        string   `json:"title"`
 	Address      string   `json:"address"`
@@ -258,7 +258,7 @@ type Venue struct {
 }
 
 // Invoice contains basic information about an invoice.
-type Invoice struct {
+type Invoice struct { //Deprecated
 	Title          string `json:"title"`
 	Description    string `json:"description"`
 	StartParameter string `json:"start_parameter"`
@@ -267,7 +267,7 @@ type Invoice struct {
 }
 
 // Game is a game within Telegram.
-type Game struct {
+type Game struct { //Deprecated
 	Title        string          `json:"title"`
 	Description  string          `json:"description"`
 	Photo        []PhotoSize     `json:"photo"`
@@ -277,7 +277,7 @@ type Game struct {
 }
 
 // SuccessfulPayment contains basic information about a successful payment.
-type SuccessfulPayment struct {
+type SuccessfulPayment struct { //Deprecated
 	Currency                string     `json:"currency"`
 	TotalAmount             int        `json:"total_amount"`
 	InvoicePayload          string     `json:"invoice_payload"`
@@ -288,7 +288,7 @@ type SuccessfulPayment struct {
 }
 
 // Animation is a GIF animation demonstrating the game.
-type Animation struct {
+type Animation struct { //Deprecated
 	FileID   string    `json:"file_id"`
 	Thumb    PhotoSize `json:"thumb"`
 	FileName string    `json:"file_name"`
@@ -297,7 +297,7 @@ type Animation struct {
 }
 
 // OrderInfo represents information about an order.
-type OrderInfo struct {
+type OrderInfo struct { //Deprecated
 	Name            string           `json:"name,omitempty"`
 	PhoneNumber     string           `json:"phone_number,omitempty"`
 	Email           string           `json:"email,omitempty"`
@@ -305,7 +305,7 @@ type OrderInfo struct {
 }
 
 // ShippingAddress represents a shipping address.
-type ShippingAddress struct {
+type ShippingAddress struct { //Deprecated
 	CountryCode string `json:"country_code"`
 	State       string `json:"state"`
 	City        string `json:"city"`
@@ -315,7 +315,7 @@ type ShippingAddress struct {
 }
 
 //APIResponse standard api response
-type APIResponse struct {
+type APIResponse struct { //Deprecated
 	Ok          bool                `json:"ok"`
 	Result      json.RawMessage     `json:"result"`
 	ErrorCode   int                 `json:"error_code"`
@@ -324,12 +324,12 @@ type APIResponse struct {
 }
 
 // ResponseParameters are various errors that can be returned in APIResponse.
-type ResponseParameters struct {
+type ResponseParameters struct { //Deprecated
 	MigrateToChatID int64 `json:"migrate_to_chat_id"` // optional
 	RetryAfter      int   `json:"retry_after"`        // optional
 }
 
-type UpdateQueryParams struct {
+type UpdateQueryParams struct { //Deprecated
 	Offset         int
 	Limit          int
 	Timeout        int
@@ -337,14 +337,14 @@ type UpdateQueryParams struct {
 }
 
 // PollAnswer pollAnswer
-type PollAnswer struct {
+type PollAnswer struct { //Deprecated
 	PollId    string `json:"poll_id"`
 	User      *User  `json:"user"`
 	OptionIds []int  `json:"option_ids"`
 }
 
 // UpdateResponse is an update response, from GetUpdates.
-type UpdateResponse struct {
+type UpdateResponse struct { //Deprecated
 	UpdateID           int                 `json:"update_id"`
 	Message            *Message            `json:"message"`
 	PollAnswer         *PollAnswer         `json:"poll_answer"`
@@ -359,7 +359,7 @@ type UpdateResponse struct {
 }
 
 // InlineQuery is a Query from Telegram for an inline request.
-type InlineQuery struct {
+type InlineQuery struct { //Deprecated
 	ID       string    `json:"id"`
 	From     *User     `json:"from"`
 	Location *Location `json:"location"` // optional
@@ -368,7 +368,7 @@ type InlineQuery struct {
 }
 
 // ChosenInlineResult is an inline query result chosen by a User
-type ChosenInlineResult struct {
+type ChosenInlineResult struct { //Deprecated
 	ResultID        string    `json:"result_id"`
 	From            *User     `json:"from"`
 	Location        *Location `json:"location"`
@@ -378,7 +378,7 @@ type ChosenInlineResult struct {
 
 // CallbackQuery is data sent when a keyboard button with callback data
 // is clicked.
-type CallbackQuery struct {
+type CallbackQuery struct { //Deprecated
 	ID              string   `json:"id"`
 	From            *User    `json:"from"`
 	Message         *Message `json:"message"`           // optional
@@ -389,7 +389,7 @@ type CallbackQuery struct {
 }
 
 // ShippingQuery contains information about an incoming shipping query.
-type ShippingQuery struct {
+type ShippingQuery struct { //Deprecated
 	ID              string           `json:"id"`
 	From            *User            `json:"from"`
 	InvoicePayload  string           `json:"invoice_payload"`
@@ -397,7 +397,7 @@ type ShippingQuery struct {
 }
 
 // PreCheckoutQuery contains information about an incoming pre-checkout query.
-type PreCheckoutQuery struct {
+type PreCheckoutQuery struct { //Deprecated
 	ID               string     `json:"id"`
 	From             *User      `json:"from"`
 	Currency         string     `json:"currency"`
@@ -408,12 +408,12 @@ type PreCheckoutQuery struct {
 }
 
 //InlineKeyboardMarkup This object represents an inline keyboard that appears right next to the message it belongs to.
-type InlineKeyboardMarkup struct {
+type InlineKeyboardMarkup struct { //Deprecated
 	InlineKeyboardButton InlineKeyboardButton `json:"inline_keyboard"` //Array of button rows, each represented by an Array of InlineKeyboardButton objects
 }
 
 //InlineKeyboardButton This object represents one button of an inline keyboard. You must use exactly one of the optional fields.
-type InlineKeyboardButton struct {
+type InlineKeyboardButton struct { //Deprecated
 	Text              string `json:"text,omitempty"`      //Label text on the button
 	Url               string `json:"text"`                //Optional. HTTP or tg:// url to be opened when button is pressed
 	//LoginUrl          string `json:"login_url"`           //Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget.

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bitbucket.org/y4cxp543/telegram-bot/constants"
+	"bitbucket.org/y4cxp543/telegram-bot/util"
 	"golang.org/x/net/html"
 	"log"
 	"math"
@@ -9,8 +11,6 @@ import (
 	"path"
 	"runtime"
 	"strings"
-	"telegram-bot-long-polling/constants"
-	"telegram-bot-long-polling/util"
 	"text/template"
 )
 
@@ -44,7 +44,7 @@ type StructureField struct {
 type nodeFunc func(node *html.Node)
 type nodePredicate func(node *html.Node) bool
 
-func main() {
+func main() { //Deprecated: use v2 instead
 	var response, _ = http.Get(TelegramModelsUrl)
 	var parsedHtml, _ = html.Parse(response.Body)
 	var nodes = make([]*html.Node, 0)

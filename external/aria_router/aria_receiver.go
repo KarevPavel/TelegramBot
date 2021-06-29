@@ -1,13 +1,13 @@
 package aria_router
 
 import (
-	"aria2c"
+	"bitbucket.org/y4cxp543/aria2c"
+	"bitbucket.org/y4cxp543/telegram-bot/constants"
+	"bitbucket.org/y4cxp543/telegram-bot/interfaces"
+	"bitbucket.org/y4cxp543/telegram-bot/util"
 	"encoding/json"
 	"github.com/asaskevich/EventBus"
 	"log"
-	"telegram-bot-long-polling/constants"
-	"telegram-bot-long-polling/interfaces"
-	"telegram-bot-long-polling/util"
 )
 
 type wsRouter struct {

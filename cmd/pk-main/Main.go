@@ -1,6 +1,6 @@
 package main
 
-import "telegram-bot-long-polling/external/aria2"
+import  "bitbucket.org/y4cxp543/aria2c"
 
 func main() {
 	var aria = new(aria2.AriaStarter)

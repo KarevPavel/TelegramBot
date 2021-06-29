@@ -1,17 +1,17 @@
 package telegram
 
 import (
+	"bitbucket.org/y4cxp543/telegram-bot/cache"
+	"bitbucket.org/y4cxp543/telegram-bot/constants"
+	"bitbucket.org/y4cxp543/telegram-bot/external/torrentz2"
+	"bitbucket.org/y4cxp543/telegram-bot/interfaces"
+	"bitbucket.org/y4cxp543/telegram-bot/observer"
+	"bitbucket.org/y4cxp543/telegram-bot/telegram/models"
+	"bitbucket.org/y4cxp543/telegram-bot/util"
 	"math"
 	"regexp"
 	"strconv"
 	"strings"
-	"telegram-bot-long-polling/cache"
-	"telegram-bot-long-polling/constants"
-	"telegram-bot-long-polling/external/torrentz2"
-	"telegram-bot-long-polling/interfaces"
-	"telegram-bot-long-polling/observer"
-	"telegram-bot-long-polling/telegram/models"
-	"telegram-bot-long-polling/util"
 )
 
 //TelegramBot wrapper for delegating HTTP calls
@@ -165,6 +165,7 @@ func nextOffset(response []models.Update) int {
 }
 
 func (t Bot) Start() {
+	//TODO: ЧТО за магия????
 	var offset = 908895178
 	for {
 		ch := make(chan []models.Update)

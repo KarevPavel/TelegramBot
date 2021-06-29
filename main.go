@@ -1,12 +1,13 @@
 package main
 
 import (
+	"bitbucket.org/y4cxp543/telegram-bot/global_services"
 	"os"
 	"os/signal"
-	"telegram-bot-long-polling/global_services"
 )
 
 func main() {
+
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt)
 	signal.Notify(c, os.Kill)

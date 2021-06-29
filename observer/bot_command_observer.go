@@ -1,7 +1,7 @@
 package observer
 
 import (
-	"telegram-bot-long-polling/interfaces"
+	"bitbucket.org/y4cxp543/telegram-bot/interfaces"
 )
 
 type BotCommandObserver struct {

@@ -1,6 +1,6 @@
 package constants
 
-import "telegram-bot-long-polling/models"
+import "bitbucket.org/y4cxp543/telegram-bot/models"
 
 var Config = models.ReadConfig()
 
@@ -11,7 +11,7 @@ const JSONContentType string = "application/json"
 const Method string = "method"
 const Space string = " "
 const EmptyString string = ""
-const BaseUrl string = "https://torrentz2.eu"
+const BaseUrl string = "https://www.torrentz.eu.com"
 const SearchOrderByPeers = BaseUrl + "/search?f="
 const TelegramMaxPollSize int = 10
 const NextPagePollIndex = TelegramMaxPollSize - 1

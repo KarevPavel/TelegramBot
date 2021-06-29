@@ -1,14 +1,13 @@
 package telegram
 
 import (
+	"bitbucket.org/y4cxp543/telegram-bot/constants"
+	"bitbucket.org/y4cxp543/telegram-bot/interfaces"
+	"bitbucket.org/y4cxp543/telegram-bot/telegram/models"
+	"bitbucket.org/y4cxp543/telegram-bot/util"
 	"net/http"
 	"strconv"
-	"string_utils"
 	"strings"
-	"telegram-bot-long-polling/constants"
-	"telegram-bot-long-polling/interfaces"
-	"telegram-bot-long-polling/telegram/models"
-	"telegram-bot-long-polling/util"
 )
 
 type TFunctions struct {
@@ -40,7 +39,7 @@ func (tFunc *TFunctions) GetFile(fileId string) (models.File, error) {
 }
 
 func (tFunc *TFunctions) DownloadFile(filePath string) []byte {
-	var url = string_utils.Replace(tFunc.FileRequest, "filePath", filePath)
+	var url = util.Replace(tFunc.FileRequest, "filePath", filePath)
 	var response, _ = http.Get(url)
 	var byteArr = util.GetBytes(response)
 	return byteArr

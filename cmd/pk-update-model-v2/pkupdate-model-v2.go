@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bitbucket.org/y4cxp543/telegram-bot/constants"
+	"bitbucket.org/y4cxp543/telegram-bot/util"
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/http"
@@ -9,8 +11,6 @@ import (
 	"reflect"
 	"runtime"
 	"strings"
-	"telegram-bot-long-polling/constants"
-	"telegram-bot-long-polling/util"
 	"text/template"
 )
 
@@ -67,6 +67,7 @@ func main() {
 	if err := tmpl.Execute(f, structureDescriptions); err != nil {
 		log.Fatal(err)
 	}
+	log.Println("Alright, saved to " + filePath)
 }
 
 func createStructFields(names *goquery.Selection, values *goquery.Selection) []StructureField {
