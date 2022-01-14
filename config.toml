@@ -1,14 +1,14 @@
 title = "Конфигурационный файл"
 
 [Client]
-token = "1051530949:AAF2ezgq49zeApjPkyRsorG1zZlQs_4OPE8"
+token = ""
 requestURL = "https://api.telegram.org/bot${token}/${method}"
 requestFile = "https://api.telegram.org/file/bot${token}/${filePath}"
 
 [Aria2C]
 downloadDir = "D:\\Torrent\\Downloaded"
 sourcesDir = "D:\\Torrent\\Sources"
-secret = "123"
+secret = ""
 logDir = "D:\\Torrent\\Aria2c.log"
 port = 9999
 maxConnectionsPerServer = 5
