@@ -1,12 +1,17 @@
 package constants
 
-import "bitbucket.org/y4cxp543/telegram-bot/models"
+import (
+	"bitbucket.org/y4cxp543/telegram-bot/external/utils"
+	"bitbucket.org/y4cxp543/telegram-bot/models"
+)
 
-var Config = models.ReadConfig()
+var Config = utils.ReadConfig(ConfigurationFile, &models.Conf{}).(*models.Conf)
 
 /**************************************
 	   SIMPLE CONSTANTS
 ***************************************/
+const ConfigurationFile string = "config.toml"
+
 const JSONContentType string = "application/json"
 const Method string = "method"
 const Space string = " "
@@ -17,6 +22,7 @@ const TelegramMaxPollSize int = 10
 const NextPagePollIndex = TelegramMaxPollSize - 1
 const TelegramMaxPollTextSize int = 100
 const TreeDots = "..."
+
 
 /**************************************
    BotCommands STRUCTURE

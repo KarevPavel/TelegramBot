@@ -165,7 +165,9 @@ func nextOffset(response []models.Update) int {
 }
 
 func (t Bot) Start() {
-	//TODO: ЧТО за магия????
+	//offset - это идентификатор последнего сообщения.
+	//т.е. если не указать то прийдут вообще все сообщения.
+	//а offset это нижняя граница ид сообщения.
 	var offset = 908895178
 	for {
 		ch := make(chan []models.Update)

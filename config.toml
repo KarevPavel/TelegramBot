@@ -14,3 +14,10 @@ port = 9999
 maxConnectionsPerServer = 5
 maxConcurrentDownloads = 5
 logLevel = "info"
+
+[DbConnection]
+host     = "192.168.100.31"
+port     = 5432
+user     = "postgres"
+password = "postgres"
+dbname   = "rutrackerdb"
