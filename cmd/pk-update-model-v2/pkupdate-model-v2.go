@@ -41,13 +41,22 @@ func main() {
 			var structureDescription = h4.Closest("p").First().Text()
 			var colNames = h4.Find("table thead tr th")
 			var colValues = h4.Find("table tbody tr")
-			if structureDescription != constants.EmptyString &&
-				colNames.Size() > 0 &&
-				colValues.Size() > 0 {
+			var structList = h4.Find("ul li a")
+			var composite = structList.Size() > 0
+
+			if structureDescription != constants.EmptyString {
+
+				var fields []StructureField
+				if !composite {
+					fields = createStructFields(colNames, colValues)
+				} else {
+					fields = createJoinedFields(doc, structList)
+				}
+
 				var structDesc = StructureDescriptor{
 					Name:        structureName,
 					Description: structureDescription,
-					Field:       createStructFields(colNames, colValues),
+					Field:       fields,
 				}
 				structureDescriptions = append(structureDescriptions, structDesc)
 			}
@@ -68,6 +77,41 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Println("Alright, saved to " + filePath)
+}
+
+func createJoinedFields(document *goquery.Document, structList *goquery.Selection) []StructureField {
+	var answer []StructureField = nil
+	structList.Each(func(i int, selection *goquery.Selection) {
+		var elementId, exists = selection.First().Attr("href")
+		if exists {
+			result := document.Find("html body div div div div div h4 a").FilterFunction(func(i int, selection *goquery.Selection) bool {
+				var id, exists = selection.Attr("href")
+				if exists {
+					return id == elementId
+				}
+				return exists
+			})
+			var h4 = result.Parent().NextUntil("h4")
+			var colNames = h4.Find("table thead tr th")
+			var colValues = h4.Find("table tbody tr")
+			var structFields = createStructFields(colNames, colValues)
+			answer = append(answer, structFields...)
+		}
+	})
+
+	return RemoveDuplicatesFromSlice(answer)
+}
+
+func RemoveDuplicatesFromSlice(s []StructureField) []StructureField {
+	var result []StructureField
+	m := make(map[string]bool)
+	for _, item := range s {
+		if _, ok := m[item.Name]; !ok {
+			m[item.Name] = true
+			result = append(result, item)
+		}
+	}
+	return result
 }
 
 func createStructFields(names *goquery.Selection, values *goquery.Selection) []StructureField {
@@ -124,7 +168,7 @@ func commonTypeToGoType(commonType string) reflect.Kind {
 	return reflect.Invalid
 }
 
-//TODO: Too stupid
+// TODO: Too stupid
 func tryHard(docType string, fields *[]StructureField) string {
 
 	if strings.Contains(docType, "Array of ") {
@@ -183,26 +227,26 @@ func tryHard(docType string, fields *[]StructureField) string {
 
 			return "InlineQueryResultVoice"
 			/*TODO: Add this QueryRequestTypes:
-						InlineQueryResultCachedAudio
-						InlineQueryResultCachedDocument
-						InlineQueryResultCachedGif
-						InlineQueryResultCachedMpeg4Gif
-						InlineQueryResultCachedPhoto
-						InlineQueryResultCachedSticker
-						InlineQueryResultCachedVideo
-						InlineQueryResultCachedVoice
-						InlineQueryResultArticle
-						InlineQueryResultAudio
-						InlineQueryResultContact
-						InlineQueryResultGame
-						InlineQueryResultDocument
-						InlineQueryResultGif
-						InlineQueryResultLocation
-						InlineQueryResultMpeg4Gif
-						InlineQueryResultPhoto
-						InlineQueryResultVenue
-						InlineQueryResultVideo
-						InlineQueryResultVoice
+			InlineQueryResultCachedAudio
+			InlineQueryResultCachedDocument
+			InlineQueryResultCachedGif
+			InlineQueryResultCachedMpeg4Gif
+			InlineQueryResultCachedPhoto
+			InlineQueryResultCachedSticker
+			InlineQueryResultCachedVideo
+			InlineQueryResultCachedVoice
+			InlineQueryResultArticle
+			InlineQueryResultAudio
+			InlineQueryResultContact
+			InlineQueryResultGame
+			InlineQueryResultDocument
+			InlineQueryResultGif
+			InlineQueryResultLocation
+			InlineQueryResultMpeg4Gif
+			InlineQueryResultPhoto
+			InlineQueryResultVenue
+			InlineQueryResultVideo
+			InlineQueryResultVoice
 			*/
 		}
 
